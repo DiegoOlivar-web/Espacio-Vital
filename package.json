@@ -1,0 +1,17 @@
+{
+  "name": "espaciovital-site",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "check": "node scripts/check.mjs",
+    "hash:admin": "node scripts/hash-admin.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

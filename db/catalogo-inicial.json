@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Masaje facial",
+    "description": "Técnica revitalizante que mejora la circulación sanguínea en el rostro, relaja los músculos faciales y devuelve la luminosidad natural a tu piel.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80",
+    "id": "s01"
+  },
+  {
+    "name": "Masaje relajante",
+    "description": "Movimientos suaves y armónicos diseñados para calmar el sistema nervioso, reducir los niveles de estrés y disolver la tensión acumulada.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80",
+    "id": "s02"
+  },
+  {
+    "name": "Masaje mixto",
+    "description": "Combinación perfecta entre técnicas relajantes y descontracturantes para atender zonas de tensión profunda sin perder la paz interior.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80",
+    "id": "s03"
+  },
+  {
+    "name": "Masajes descontracturantes",
+    "description": "Enfocado en liberar los nudos musculares y contracturas severas causadas por malas posturas, estrés o esfuerzo físico excesivo.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80",
+    "id": "s04"
+  },
+  {
+    "name": "Reflexologia podal",
+    "description": "Estimulación de puntos reflejos en los pies que corresponden a distintos órganos y sistemas del cuerpo, promoviendo el equilibrio orgánico.",
+    "category": "Reflexología",
+    "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80",
+    "id": "s05"
+  },
+  {
+    "name": "Bambúterapia",
+    "description": "Terapia con cañas de bambú que se adaptan a la anatomía corporal, ideal para drenar, reducir, moldear y relajar profundamente.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80",
+    "id": "s06"
+  },
+  {
+    "name": "Dulce espera (embarazada)",
+    "description": "Masaje prenatal especializado y seguro que alivia dolores lumbares, pesadez en piernas y relaja a la futura mamá con total delicadeza.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80",
+    "id": "s07"
+  },
+  {
+    "name": "Masaje sueco",
+    "description": "Técnica clásica occidental con caricias deslizantes, amasamiento y fricción para relajar los músculos y estimular la circulación general.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80",
+    "id": "s08"
+  },
+  {
+    "name": "Reductor",
+    "description": "Masaje con maniobras vigorosas destinado a movilizar grasa localizada, mejorar el contorno corporal y activar el metabolismo local.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80",
+    "id": "s09"
+  },
+  {
+    "name": "Punción seca",
+    "description": "Técnica fisioterapéutica altamente efectiva que utiliza agujas de acupuntura para desactivar puntos gatillo miofasciales y aliviar el dolor profundo.",
+    "category": "Terapia física",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80",
+    "id": "s10"
+  },
+  {
+    "name": "Electropunción",
+    "description": "Aplicación de corrientes eléctricas suaves a través de agujas de punción seca para potenciar la recuperación muscular y analgésica.",
+    "category": "Terapia física",
+    "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80",
+    "id": "s11"
+  },
+  {
+    "name": "Silla ergonómica",
+    "description": "Masaje rápido y focalizado en espalda, cuello y hombros aplicado sobre silla ergonómica, perfecto para aliviar el estrés laboral.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80",
+    "id": "s12"
+  },
+  {
+    "name": "Terapeuta de dolor",
+    "description": "Abordaje clínico especializado para tratar dolores crónicos o agudos del sistema osteomuscular con evaluación personalizada.",
+    "category": "Terapia física",
+    "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80",
+    "id": "s13"
+  },
+  {
+    "name": "Drenajes linfáticos",
+    "description": "Masaje suave y rítmico que estimula el sistema linfático para eliminar líquidos retenidos, toxinas y reducir inflamaciones post-quirúrgicas.",
+    "category": "Masajes",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80",
+    "id": "s14"
+  },
+  {
+    "name": "Descarga muscular",
+    "description": "Diseñado para deportistas y personas con alta carga física; elimina el ácido láctico acumulado y previene lesiones musculares.",
+    "category": "Terapia física",
+    "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80",
+    "id": "s15"
+  },
+  {
+    "name": "Biomagnetismo",
+    "description": "Terapia holística que utiliza imanes para equilibrar el pH del organismo y restablecer la salud bioenergética y celular.",
+    "category": "Bienestar integral",
+    "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80",
+    "id": "s16"
+  },
+  {
+    "name": "Al inicio de chacra",
+    "description": "Alineación y activación de centros energéticos principales para armonizar la mente, el espíritu y el cuerpo energético.",
+    "category": "Bienestar integral",
+    "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80",
+    "id": "s17"
+  },
+  {
+    "name": "Azufreterapia",
+    "description": "Terapia tradicional con propiedades desintoxicantes y purificadoras, ideal para el alivio de afecciones articulares y cutáneas.",
+    "category": "Bienestar integral",
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80",
+    "id": "s18"
+  }
+]

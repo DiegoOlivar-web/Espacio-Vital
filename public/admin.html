@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Administración | Espacio Vital</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="admin.js" defer></script>
+    </head>
+    <body>
+    <header>
+        <a href="index.html" class="logo">✦ ESPACIO VITAL</a>
+        <span>Administración del catálogo</span>
+        <button id="logout" hidden>Cerrar sesión</button>
+    </header>
+    <main>
+        <section id="login-view" class="panel narrow">
+        <h1>Acceso administrativo</h1>
+        <p>Inicia sesión para gestionar categorías y tratamientos.</p>
+        <form id="login-form">
+            <label>Usuario
+            <input name="username" autocomplete="username" required maxlength="100">
+            </label>
+            <label>Contraseña
+            <input name="password" type="password" autocomplete="current-password" required>
+            </label>
+            <button class="primary">Ingresar</button>
+        </form>
+        </section>
+
+        <section id="dashboard" hidden>
+        <div class="headline">
+            <div>
+            <h1>Gestión de tratamientos</h1>
+            <p>Actualiza el catálogo publicado en la web.</p>
+            </div>
+            <button id="reload">Actualizar catálogo</button>
+        </div>
+
+        <div class="columns">
+            <section class="panel">
+            <h2>Categorías</h2>
+            <form id="category-form">
+                <input type="hidden" name="id">
+                <label>Nombre
+                <input name="nombre" required maxlength="150">
+                </label>
+                <label>Descripción
+                <textarea name="descripcion" maxlength="1500" rows="2"></textarea>
+                </label>
+                <div class="actions">
+                <button class="primary" id="category-submit">Guardar categoría</button>
+                <button type="button" id="category-cancel">Cancelar edición</button>
+                </div>
+            </form>
+            <div id="category-list" class="list"></div>
+            </section>
+
+            <section class="panel">
+            <h2>Servicios</h2>
+            <form id="service-form">
+                <input type="hidden" name="id">
+                <label>Nombre
+                <input name="nombre" required maxlength="150">
+                </label>
+                <label>Descripción
+                <textarea name="descripcion" maxlength="1500" rows="3"></textarea>
+                </label>
+                <label>URL de imagen (HTTPS)
+                <input name="imagen_url" type="url" placeholder="https://..." maxlength="2000">
+                </label>
+                <label>Categoría
+                <select name="categoria_id" required></select>
+                </label>
+                <div class="actions">
+                <button class="primary" id="service-submit">Guardar servicio</button>
+                <button type="button" id="service-cancel">Cancelar edición</button>
+                </div>
+            </form>
+            <div id="service-list" class="list"></div>
+            </section>
+        </div>
+        </section>
+
+        <p id="notice" role="status" aria-live="polite"></p>
+    </main>
+    </body>
+</html>

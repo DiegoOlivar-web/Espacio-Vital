@@ -1,0 +1,18 @@
+.gold-gradient-text {
+    background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #ca8a04 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.gold-gradient-bg {
+    background: linear-gradient(135deg, #d4af37 0%, #ca8a04 100%);
+}
+.gold-border {
+    border-color: rgba(212, 175, 55, 0.3);
+}
+.gold-glow:hover {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+}
