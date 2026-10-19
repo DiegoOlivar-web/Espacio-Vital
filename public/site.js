@@ -282,6 +282,17 @@
     cat.addEventListener('click', e => { const btn = e.target.closest('[data-category]'); if (!btn) return; selected = btn.dataset.category; const url = new URL(location.href); if (selected === 'Todos') url.searchParams.delete('categoria'); else url.searchParams.set('categoria', selected); history.replaceState(null, '', url.pathname + url.search); render(); });
     q.addEventListener('input', render);
     render();
+    
+    if (window.innerWidth <= 850) {
+        const resultados = document.querySelector(
+            '.ev-catalog-results'
+        );
+
+        resultados?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
   }
 
   function startSlider() {

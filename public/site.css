@@ -1722,3 +1722,203 @@
     grid-template-columns: 1fr;
   }
 }
+
+/*  CORRECCIÓN RESPONSIVE: SERVICIOS  */
+.ev-services-page {
+    width: 100%;
+    max-width: 100%;
+}
+
+.ev-services-page main {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.ev-services-page main .ev-container {
+    width: min(1190px, calc(100% - 28px));
+    max-width: 100%;
+    margin-inline: auto;
+}
+
+/* Solucion expanción del grid */
+.ev-services-page .ev-catalog-layout {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.ev-services-page .ev-catalog-results {
+    scroll-margin-top: 90px;
+}
+
+.ev-services-page .ev-catalog-side,
+.ev-services-page .ev-catalog-results,
+.ev-services-page .ev-service-grid,
+.ev-services-page .ev-service-card,
+.ev-services-page .ev-service-body {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.ev-services-page .ev-service-card h3,
+.ev-services-page .ev-service-body p,
+.ev-services-page .ev-service-meta {
+    overflow-wrap: anywhere;
+}
+
+/* Imágenes adaptables */
+.ev-services-page .ev-service-photo,
+.ev-services-page .ev-service-photo img {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 850px) {
+    .ev-services-page .ev-catalog-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+    }
+
+    .ev-services-page .ev-catalog-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ev-services-page .ev-search {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+}
+
+/* CARDS DE SERVICIOS RESPONSIVE */
+.ev-services-page .ev-service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.ev-services-page .ev-service-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #243044;
+    border: 1px solid var(--ev-border);
+}
+
+.ev-services-page .ev-service-photo {
+    height: auto;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.ev-services-page .ev-service-photo img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.ev-services-page .ev-service-body {
+    padding: 20px;
+    flex: 1;
+}
+
+.ev-services-page .ev-service-add {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    min-height: 46px;
+}
+
+/* Tablets */
+@media (max-width: 850px) {
+    .ev-services-page .ev-service-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Móviles */
+@media (max-width: 630px) {
+
+    .ev-services-page .ev-catalog-results {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .ev-services-page .ev-service-grid {
+        gap: 16px;
+    }
+
+    .ev-services-page .ev-service-body {
+        padding: 16px;
+    }
+
+    .ev-services-page .ev-service-card h3 {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .ev-services-page .ev-service-body > p {
+        font-size: .83rem;
+        line-height: 1.7;
+    }
+
+    .ev-services-page .ev-service-add {
+        font-size: .85rem;
+        padding: 12px 10px;
+    }
+}
+
+/* CATEGORÍAS RESPONSIVE */
+@media (max-width: 850px) {
+    .ev-services-page .ev-catalog-side {
+        width: 100%;
+        min-width: 0;
+        position: static;
+    }
+
+    .ev-services-page .ev-category-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        overflow: visible;
+        padding-bottom: 0;
+    }
+
+    .ev-services-page .ev-category-nav button {
+        width: 100%;
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 6px;
+        padding: 12px;
+        border: 1px solid var(--ev-border);
+        background: #1e293b;
+        border-radius: 12px;
+        font-size: .8rem;
+    }
+
+    .ev-services-page .ev-category-nav button span {
+        flex-shrink: 0;
+    }
+
+    .ev-services-page .ev-category-nav button.is-active {
+        background: rgba(212, 175, 55, .14);
+        border-color: var(--ev-gold);
+        color: var(--ev-gold);
+    }
+}
+
+/* Pantallas estrechas */
+@media (max-width: 350px) {
+    .ev-services-page .ev-category-nav {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
