@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="site.css">
+        <script src="servicios-data.js" defer></script>
+        <script src="site.js" defer></script>
+        <title>Masajes a domicilio | Espacio Vital</title>
+        <meta name="description" content="Solicita una cotización de masajes y tratamientos de bienestar a domicilio en Lima mediante WhatsApp.">
+    </head>
+    <body class="ev-page">
+        <div id="site-header"></div>
+        <main>
+            <section class="ev-photo-hero" style="background-image:url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1800&q=88');background-position:center 47%;min-height:480px">
+            <div><span class="ev-mini-label">Experiencia personalizada</span><h1 class="ev-heading">SERVICIO A DOMICILIO</h1><p>Profesionales de bienestar que se acercan a la comodidad de tu hogar. ¡Tú solo dedícate a relajarte!</p><a class="ev-primary-button" href="#cotizacion">PEDIR COTIZACIÓN <i class="fas fa-arrow-down"></i></a></div></section>
+            <section class="ev-section"><div class="ev-container"><div class="ev-intro"><span class="ev-mini-label">A tu comodidad</span><h2 class="ev-heading">Nuestros servicios a domicilio</h2><p>Consulta la disponibilidad de estas opciones en tu distrito. El precio del desplazamiento y los materiales se confirma al cotizar.</p></div>
+            <div class="ev-feature-grid">
+            <article class="ev-feature-card"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=85" alt="Ambiente de masajes relajantes" loading="lazy"><div><h3>Masajes</h3><p>Elige entre técnicas relajantes y descontracturantes para dedicarte un momento de descanso en casa.</p><a href="servicios.html?categoria=Masajes">Ver masajes <i class="fas fa-arrow-right"></i></a></div></article>
+            <article class="ev-feature-card"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=85" alt="Imagen referencial de reflexología" loading="lazy"><div><h3>Reflexología</h3><p>Consulta por sesiones enfocadas en puntos reflejos de los pies en un espacio tranquilo de tu hogar.</p><a href="servicios.html?categoria=Reflexolog%C3%ADa">Ver reflexología <i class="fas fa-arrow-right"></i></a></div></article>
+            <article class="ev-feature-card"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=85" alt="Imagen referencial de terapia física" loading="lazy"><div><h3>Terapia física</h3><p>Pregunta por disponibilidad de atención orientada a la recuperación funcional y manejo de molestias musculares.</p><a href="servicios.html?categoria=Terapia%20f%C3%ADsica">Ver terapia física <i class="fas fa-arrow-right"></i></a></div></article>
+            </div></div></section>
+            <section class="ev-section ev-light-panel"><div class="ev-container">
+            <div class="ev-intro"><span class="ev-mini-label">¿Por qué elegir atención a domicilio?</span><h2 class="ev-heading">Nosotros nos acercamos a ti</h2><p>Vive una experiencia de bienestar sin salir de tu casa y coordina las condiciones de la sesión por WhatsApp.</p></div>
+            <div class="ev-perk-grid">
+            <div class="ev-perk"><i class="fas fa-house-user"></i><h3>Comodidad</h3><p>Recibe atención sin salir de tu hogar.</p></div>
+            <div class="ev-perk"><i class="fas fa-user-check"></i><h3>Atención personalizada</h3><p>Explica tus necesidades antes de reservar.</p></div>
+            <div class="ev-perk"><i class="fas fa-spa"></i><h3>Equipamiento</h3><p>Consulta por camilla y accesorios disponibles.</p></div>
+            <div class="ev-perk"><i class="fas fa-clock"></i><h3>Más tiempo para ti</h3><p>Evita trasladarte al local.</p></div>
+            </div></div></section>
+            <section class="ev-section ev-quote-bg" id="cotizacion">
+            <div class="ev-container"><div class="ev-quote-card"><h2>¡Solicita una <span class="ev-gradient-text">cotización!</span></h2><p>Completa la información necesaria para que podamos atender tu solicitud. Se abrirá WhatsApp con un mensaje preparado, sin enviar datos a ningún servidor de esta web.</p>
+                        <form id="ev-quote-form">
+                            <div class="ev-form-grid">
+                                <div class="ev-form-field">
+                                    <label for="ev-nombre">Nombre *</label>
+                                    <input id="ev-nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required maxlength="80">
+                                </div>
+                                <div class="ev-form-field">
+                                    <label for="ev-telefono">Celular *</label>
+                                    <input id="ev-telefono" name="telefono" placeholder="Tu número" type="tel" autocomplete="tel" required pattern="[+0-9 ]{7,20}" title="Ingresa un número de celular válido">
+                                </div>
+                                <div class="ev-form-field">
+                                    <label for="ev-servicio">Servicio *</label>
+                                    <select id="ev-servicio" name="servicio" required>
+                                        <option value="">Selecciona...</option>
+                                        <option>Masajes</option>
+                                        <option>Reflexología</option>
+                                        <option>Terapia física</option>
+                                        <option>Bienestar integral</option>
+                                    </select></div>
+                                <div class="ev-form-field">
+                                    <label for="ev-distrito">Distrito *</label>
+                                    <input id="ev-distrito" name="distrito" placeholder="Ej. Villa El Salvador" required maxlength="100">
+                                </div>
+                                <div class="ev-form-field">
+                                    <label for="ev-personas">N.º de personas *</label>
+                                    <input id="ev-personas" name="personas" type="number" min="1" max="50" value="1" required>
+                                </div>
+                                <div class="ev-form-field">
+                                    <label for="ev-fecha">Fecha preferida</label>
+                                    <input id="ev-fecha" name="fecha" type="date">
+                                </div>
+                                <div class="ev-form-field ev-full">
+                                    <label for="ev-direccion">Dirección o referencia (opcional)</label>
+                                    <input id="ev-direccion" name="direccion" placeholder="Podemos coordinarla después" maxlength="180" autocomplete="street-address">
+                                </div>
+                            </div>
+                            <button type="submit" class="ev-primary-button ev-quote-submit"><i class="fab fa-whatsapp"></i> Enviar cotización por WhatsApp</button>
+                            <p class="ev-legal-note">La atención a domicilio está sujeta a cobertura, disponibilidad y cotización confirmada por Espacio Vital.</p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <div id="site-footer"></div>
+    </body>
+</html>

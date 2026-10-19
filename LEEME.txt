@@ -1,0 +1,31 @@
+ESPACIO VITAL — SITIO WEB ACTUALIZADO
+=====================================
+ARCHIVOS PRINCIPALES
+- index.html: portada, slider rotativo con tres imágenes, cinco categorías.
+- servicios.html: 18 tratamientos con filtros, precios y botón "Agregar al carrito".
+- nosotros.html: presentación del centro, historia/enfoque y servicios.
+- domicilio.html: información de atención a domicilio y formulario de cotización.
+- site.css: estilos compartidos, carrito, panel lateral, modales y slider.
+- site.js: navegación, slider, filtros, carrito y envío a WhatsApp.
+- servicios-data.js: única fuente de información de los tratamientos y sus precios.
+- styles.css / script.js / img/logo.jpg: archivos conservados del proyecto original.
+
+FLUJO DEL CARRITO
+1. En servicios.html selecciona una categoría o usa el buscador.
+2. Agrega tratamientos; al hacerlo se abre el carrito lateral.
+3. Modifica la cantidad (+ / -) o elimina productos (papelera).
+4. Pulsa "Solicitar productos", elige "Efectivo (en el local)" o "Yape".
+5. Pulsa "Enviar pedido por WhatsApp". Se abre un mensaje preparado para
+   https://wa.me/51932200162 con servicios, cantidades, subtotales, total y pago.
+No se efectúa ni procesa ningún pago dentro de la web.
+El carrito se conserva en localStorage del navegador.
+
+NAVEGACIÓN
+- Las tarjetas de index.html pasan un filtro en `servicios.html?categoria=...`.
+- El icono de carrito está en el encabezado de las 4 páginas.
+- Domicilio contiene su propio formulario, que también abre WhatsApp.
+
+ESTILO Y CONTENIDO
+- Paleta original: azul marino oscuro #0f172a, gris #1e293b y dorado #d4af37.
+- La carga de iconos, fuentes, imágenes y Tailwind (en index.html) requiere
+  conexión a Internet por utilizar CDN.
