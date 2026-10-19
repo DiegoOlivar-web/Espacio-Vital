@@ -1,4 +1,4 @@
-(() => {
+( () => {
   'use strict';
   const PHONE = window.EV_WHATSAPP || '51932200162';
   let PRODUCTS = [];
@@ -26,18 +26,151 @@
     return links.map(([url, name]) => `<a href="${url}" class="${active === url ? 'ev-current' : ''}">${name}</a>`).join('');
   }
 
+  function initializeSmartHeader() {
+    const paginasPermitidas = [
+        "",
+        "index.html",
+        "servicios.html",
+        "nosotros.html",
+        "domicilio.html"
+    ];
+
+    const paginaActual =
+        window.location.pathname.split("/").pop();
+
+    if (!paginasPermitidas.includes(paginaActual)) return;
+
+    const header = document.getElementById("site-header");
+
+    if (!header) return;
+
+    let scrollAnterior = window.scrollY;
+    let pendiente = false;
+
+    
+    
+    function controlarHeader() {
+      const scrollActual = window.scrollY;
+      const diferencia = scrollActual - scrollAnterior;
+
+      // Verificar si el menú móvil está abierto
+      const menuAbierto = document
+          .getElementById("ev-mobile-nav")
+          ?.classList.contains("ev-open");
+
+      // Si el menú está abierto, mantener visible el header
+      if (menuAbierto) {
+          header.classList.remove("ev-header-hidden");
+          scrollAnterior = scrollActual;
+          pendiente = false;
+          return;
+      }
+
+      // Mostrar el encabezado cerca del inicio
+      if (scrollActual <= 80) {
+          header.classList.remove("ev-header-hidden");
+
+      } else if (diferencia > 5) {
+          // Ocultar al bajar
+          header.classList.add("ev-header-hidden");
+
+      } else if (diferencia < -5) {
+          // Mostrar al subir
+          header.classList.remove("ev-header-hidden");
+      }
+
+      scrollAnterior = scrollActual;
+      pendiente = false;
+    }
+
+    window.addEventListener("scroll", function () {
+
+        if (!pendiente) {
+            window.requestAnimationFrame(controlarHeader);
+            pendiente = true;
+        }
+
+    }, { passive: true });
+  }
+
   function initializeShell() {
     const page = location.pathname.split('/').pop() || 'index.html';
     const header = byId('site-header');
-    if (header) header.innerHTML = `<header class="ev-header"><div class="ev-container ev-header-inner">
-<a class="ev-brand" href="index.html"><img src="img/logo.jpg" alt="Logo de Espacio Vital"><span><strong>ESPACIO VITAL</strong><small>Masajes Terapéuticos</small></span></a>
-<nav class="ev-nav" aria-label="Navegación principal">${nav(page)}<a class="ev-cta" target="_blank" rel="noopener noreferrer" href="${wa('Hola Espacio Vital, quisiera realizar una consulta o reserva.')}"><i class="fab fa-whatsapp"></i> Contáctanos</a></nav>
-<div class="ev-actions"><button class="ev-cart-trigger" id="ev-cart-trigger" type="button" aria-label="Abrir carrito" aria-haspopup="dialog" aria-controls="ev-cart-panel"><i class="fas fa-shopping-cart"></i><span class="ev-cart-badge" id="ev-cart-badge">0</span></button>
-<button class="ev-menu-trigger" id="ev-menu-trigger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="ev-mobile-nav"><i class="fas fa-bars"></i></button></div></div>
-<nav class="ev-mobile-nav" id="ev-mobile-nav" aria-label="Navegación móvil">${nav(page)}<a class="ev-cta" href="${wa('Hola Espacio Vital, quisiera realizar una consulta.')}"><i class="fab fa-whatsapp"></i> Consultar por WhatsApp</a></nav></header>`;
+    if (header) header.innerHTML = 
+    `<header class="ev-header">
+      <div class="ev-container ev-header-inner">
+        <a class="ev-brand" href="index.html">
+          <img src="img/logo.jpg" alt="Logo de Espacio Vital">
+          <span><strong>ESPACIO VITAL</strong><small>Masajes Terapéuticos</small></span>
+        </a>
+
+        <nav class="ev-nav" aria-label="Navegación principal">${nav(page)}
+          <a class="ev-cta" target="_blank" rel="noopener noreferrer" href="${wa('Hola Espacio Vital, quisiera realizar una consulta o reserva.')}">
+            <i class="fab fa-whatsapp"></i> Contáctanos
+          </a>
+        </nav>
+
+        <div class="ev-actions">
+          <!-- Carrito de servicios -->
+          <button class="ev-cart-trigger" id="ev-cart-trigger" type="button" aria-label="Abrir carrito" aria-haspopup="dialog" aria-controls="ev-cart-panel">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="ev-cart-badge" id="ev-cart-badge">0</span>
+          </button>
+
+          <!-- Acceso al administrador -->
+          <a href="admin.html"
+            class="ev-login-trigger"
+            aria-label="Iniciar sesión como administrador"
+            title="Acceso administrativo" hidden>
+            <i class="fas fa-user-lock"></i>
+          </a>
+
+          <!-- Menú de navegación móvil -->
+          <button class="ev-menu-trigger" id="ev-menu-trigger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="ev-mobile-nav">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      
+      <nav class="ev-mobile-nav" id="ev-mobile-nav" aria-label="Navegación móvil">${nav(page)}
+        <a class="ev-cta" href="${wa('Hola Espacio Vital, quisiera realizar una consulta.')}">
+          <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+        </a>
+      </nav>
+    </header>`;
 
     const footer = byId('site-footer');
-    if (footer) footer.innerHTML = `<footer class="ev-footer"><div class="ev-container ev-footer-grid"><div><a class="ev-footer-brand" href="index.html"><i class="fas fa-spa"></i> ESPACIO VITAL</a><p>Masajes terapéuticos y bienestar integral para tu día a día.</p></div><div><b>Explora</b><a href="servicios.html">Servicios</a><a href="domicilio.html">A domicilio</a><a href="nosotros.html">Nosotros</a></div><div><b>Encuéntranos</b><p>Av. Modelo 51, Grupo 22, Mz. P, Lt 3<br>Villa El Salvador, Lima, Perú</p><a href="${wa('Hola Espacio Vital, deseo solicitar información.')}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> +51 932 200 162</a></div></div><div class="ev-container ev-footer-bottom">© ${new Date().getFullYear()} Espacio Vital · Todos los derechos reservados · Pedidos y consultas por WhatsApp</div></footer>`;
+    if (footer) footer.innerHTML =
+    `<footer class="ev-footer">
+      <div class="ev-container ev-footer-grid">
+        <div class="ev-footer-brand">
+          <a class="ev-brand" href="index.html">
+            <img src="img/logo.jpg" alt="Logo de Espacio Vital">
+            <span>
+              <strong>ESPACIO VITAL</strong>
+              <small>Masajes Terapéuticos</small>
+            </span>
+          </a>
+          <p>Masajes terapéuticos y bienestar integral para tu día a día.</p>
+        </div>
+        <div>
+          <b>Explora</b>
+          <a href="servicios.html">Servicios</a>
+          <a href="domicilio.html">A domicilio</a>
+          <a href="nosotros.html">Nosotros</a>
+        </div>
+        <div>
+          <b>Encuéntranos</b>
+          <p>Av. Modelo 51, Grupo 22, Mz. P, Lt 3<br>Villa El Salvador, Lima, Perú</p>
+          <a href="${wa('Hola Espacio Vital, deseo solicitar información.')}" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i> +51 932 200 162
+          </a>
+        </div>
+      </div>
+      <div class="ev-container ev-footer-bottom">
+        © ${new Date().getFullYear()} Espacio Vital · Todos los derechos reservados · Pedidos y consultas por WhatsApp
+      </div>
+    </footer>`;
 
     document.body.insertAdjacentHTML('beforeend', `
 <div class="ev-overlay" id="ev-overlay" hidden></div>
@@ -52,7 +185,23 @@
 <div class="ev-pay-footer"><button id="ev-whatsapp-order" type="submit" class="ev-primary-button" disabled><i class="fab fa-whatsapp"></i> Consultar Pedido</button></div></form>
 </div></div>`);
 
-    byId('ev-menu-trigger').addEventListener('click', () => { let el = byId('ev-mobile-nav'); let show = !el.classList.contains('ev-open'); el.classList.toggle('ev-open', show); byId('ev-menu-trigger').setAttribute('aria-expanded', String(show)); });
+    byId('ev-menu-trigger').addEventListener('click', () => {
+      const menu = byId('ev-mobile-nav');
+      const boton = byId('ev-menu-trigger');
+      const header = byId('site-header');
+
+      const abierto = !menu.classList.contains('ev-open');
+
+      // Abrir o cerrar menú
+      menu.classList.toggle('ev-open', abierto);
+
+      boton.setAttribute('aria-expanded', String(abierto));
+
+      // Mantener visible el encabezado en movil
+      if (abierto) {
+          header.classList.remove('ev-header-hidden');
+      }
+    });
     byId('ev-cart-trigger').addEventListener('click', openCart);
     document.querySelectorAll('[data-close-cart]').forEach(b => b.addEventListener('click', closeCart));
     byId('ev-overlay').addEventListener('click', closeCart);
@@ -175,5 +324,11 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => { initializeShell(); startSlider(); startQuoteForm(); loadCatalog(); });
-})();
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeShell();
+    initializeSmartHeader();
+    startSlider();
+    startQuoteForm();
+    loadCatalog();
+  });
+} ) ();

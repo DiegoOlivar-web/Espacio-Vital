@@ -23,6 +23,7 @@ header {
 .logo {
   font-weight: 800;
   letter-spacing: 1px;
+  text-align: center;
   color: #d4af37;
   text-decoration: none;
 }

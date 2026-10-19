@@ -16,3 +16,61 @@ body {
     background-color: #0f172a;
     color: #f1f5f9;
 }
+
+/* Imagen de fondo: Servicio a domicilio */
+.ev-home-service-bg {
+    position: relative;
+    isolation: isolate;
+    background:
+        linear-gradient(
+            rgba(15, 23, 42, 0.78),
+            rgba(15, 23, 42, 0.85)
+        ),
+        url("img/logo.jpg")
+        center center / cover no-repeat;
+}
+
+/* Mantener el contenido por delante */
+.ev-home-service-bg > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ajustar el fondo en móviles */
+@media (max-width: 768px) {
+    .ev-home-service-bg {
+        background-position: center;
+    }
+}
+
+
+/* Imagen Sede */
+.ev-sede-photo {
+    width: 100%;
+    max-width: 520px;
+    height: 250px;
+    margin: 0 auto 28px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    background: #202b3c;
+}
+
+.ev-sede-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.ev-sede-photo:hover img {
+    transform: scale(1.04);
+}
+
+@media (max-width: 768px) {
+    .ev-sede-photo {
+        height: 190px;
+    }
+}
