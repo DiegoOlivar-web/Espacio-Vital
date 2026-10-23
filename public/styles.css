@@ -26,7 +26,7 @@ body {
             rgba(15, 23, 42, 0.78),
             rgba(15, 23, 42, 0.85)
         ),
-        url("img/logo.jpg")
+        url("img/domicilio-fondo.webp")
         center center / cover no-repeat;
 }
 
@@ -36,13 +36,57 @@ body {
     z-index: 1;
 }
 
+.map-container {
+    position: relative;
+    width: 100%;       /* O el ancho fijo que prefieras, ej: 400px */
+    height: 300px;     /* ¡Importante! Define una altura fija para el contenedor */
+    overflow: hidden;
+}
+
+/* Estilo común para la imagen y el mapa dentro del contenedor */
+.map-container a,
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Evita que la imagen se deforme */
+}
+
+/* Estado inicial del mapa: oculto */
+.map-frame {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transición suave opcional */
+    pointer-events: none; /* Evita que intercepte el mouse antes de mostrarse */
+}
+
+/* Estado cuando se activa el mapa */
+.map-container.active .map-frame {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Ocultar la imagen cuando el contenedor está activo */
+.map-container.active img {
+    opacity: 0;
+    visibility: hidden;
+}
+
 /* Ajustar el fondo en móviles */
 @media (max-width: 768px) {
     .ev-home-service-bg {
         background-position: center;
     }
 }
-
 
 /* Imagen Sede */
 .ev-sede-photo {
@@ -60,7 +104,6 @@ body {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     object-position: center;
     transition: transform 0.4s ease;
 }
