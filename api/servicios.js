@@ -4,7 +4,8 @@ import { respond, method, dataBody, fail } from './_lib/http.js';
 
 const trimmed = (v, max = 255) => typeof v === 'string' ? v.trim().slice(0, max) : '';
 const integer = v => /^\d+$/.test(String(v??'')) && Number.isSafeInteger(Number(v)) && Number(v) > 0 ? Number(v) : null;
-const imageValid = url => !url || (/^https:\/\//i.test(url) && url.length <= 2000);
+// imagen_url ya no exige HTTPS: las imágenes provienen de Vercel Blob (storage propio)
+const imageValid = url => !url || url.length <= 2000;
 
 async function list() {
     const [cats, services] = await Promise.all([
@@ -49,7 +50,7 @@ export default async function handler(req, res) {
 
         const categoria_id = integer(body.categoria_id), imagen_url = trimmed(body.imagen_url, 2000);
 
-        if(!categoria_id || !imageValid(imagen_url)) return respond(res, 400, { error: 'Categoría o URL de imagen inválida (solo HTTPS)' });
+        if(!categoria_id || !imageValid(imagen_url)) return respond(res, 400, { error: 'Categoría inválida o URL de imagen demasiado larga' });
 
         if(req.method === 'POST') {
             const r = await db().query('INSERT INTO servicios(nombre,descripcion,imagen_url,categoria_id) VALUES($1,$2,$3,$4) RETURNING *', [nombre, descripcion, imagen_url, categoria_id]);

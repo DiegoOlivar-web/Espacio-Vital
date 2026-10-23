@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
         <title>Administración | Espacio Vital</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="admin.css">
         <script src="admin.js" defer></script>
     </head>
@@ -15,72 +18,168 @@
             <button id="logout" hidden>Cerrar sesión</button>
         </header>
         <main>
+            <!-- Login -->
             <section id="login-view" class="panel narrow">
-            <h1>Acceso administrativo</h1>
-            <p>Inicia sesión para gestionar categorías y tratamientos.</p>
-            <form id="login-form">
-                <label>Usuario
-                <input name="username" autocomplete="username" required maxlength="100">
-                </label>
-                <label>Contraseña
-                <input name="password" type="password" autocomplete="current-password" required>
-                </label>
-                <button class="primary">Ingresar</button>
-            </form>
+                <h1>Acceso administrativo</h1>
+                <p>Inicia sesión para gestionar categorías, tratamientos y el Hero Slider.</p>
+                <form id="login-form">
+                    <label>Usuario
+                        <input name="username" autocomplete="username" required maxlength="100">
+                    </label>
+                    <label>Contraseña
+                        <input name="password" type="password" autocomplete="current-password" required>
+                    </label>
+                    <button class="primary">Ingresar</button>
+                </form>
             </section>
 
+            <!-- Dashboard -->
             <section id="dashboard" hidden>
-            <div class="headline">
-                <div>
-                <h1>Gestión de tratamientos</h1>
-                <p>Actualiza el catálogo publicado en la web.</p>
+                <div class="headline">
+                    <div>
+                        <h1>Panel de Administración</h1>
+                        <p>Gestiona el catálogo de tratamientos y el Hero Slider del sitio web.</p>
+                    </div>
+                    <button id="reload">↺ Actualizar datos</button>
                 </div>
-                <button id="reload">Actualizar catálogo</button>
-            </div>
 
-            <div class="columns">
-                <section class="panel">
-                <h2>Categorías</h2>
-                <form id="category-form">
-                    <input type="hidden" name="id">
-                    <label>Nombre
-                    <input name="nombre" required maxlength="150">
-                    </label>
-                    <label>Descripción
-                    <textarea name="descripcion" maxlength="1500" rows="2"></textarea>
-                    </label>
-                    <div class="actions">
-                    <button class="primary" id="category-submit">Guardar categoría</button>
-                    <button type="button" id="category-cancel">Cancelar edición</button>
-                    </div>
-                </form>
-                <div id="category-list" class="list"></div>
-                </section>
+                <!-- Tabs -->
+                <div class="tabs" role="tablist">
+                    <button role="tab" class="tab is-active" data-tab="tratamientos" aria-selected="true" id="tab-tratamientos">
+                        📋 Tratamientos
+                    </button>
+                    <button role="tab" class="tab" data-tab="hero" aria-selected="false" id="tab-hero">
+                        🖼️ Hero Slider
+                    </button>
+                </div>
 
-                <section class="panel">
-                <h2>Servicios</h2>
-                <form id="service-form">
-                    <input type="hidden" name="id">
-                    <label>Nombre
-                    <input name="nombre" required maxlength="150">
-                    </label>
-                    <label>Descripción
-                    <textarea name="descripcion" maxlength="1500" rows="3"></textarea>
-                    </label>
-                    <label>URL de imagen (HTTPS)
-                    <input name="imagen_url" type="url" placeholder="https://..." maxlength="2000">
-                    </label>
-                    <label>Categoría
-                    <select name="categoria_id" required></select>
-                    </label>
-                    <div class="actions">
-                    <button class="primary" id="service-submit">Guardar servicio</button>
-                    <button type="button" id="service-cancel">Cancelar edición</button>
+                <!-- ══════════ PESTAÑA: TRATAMIENTOS ══════════ -->
+                <div id="pane-tratamientos" class="tab-pane">
+                    <div class="columns">
+                        <!-- Categorías -->
+                        <section class="panel">
+                            <h2>Categorías</h2>
+                            <form id="category-form">
+                                <input type="hidden" name="id">
+                                <label>Nombre
+                                    <input name="nombre" required maxlength="150">
+                                </label>
+                                <label>Descripción
+                                    <textarea name="descripcion" maxlength="1500" rows="2"></textarea>
+                                </label>
+                                <div class="actions">
+                                    <button class="primary" id="category-submit">Guardar categoría</button>
+                                    <button type="button" id="category-cancel">Cancelar edición</button>
+                                </div>
+                            </form>
+                            <div id="category-list" class="list"></div>
+                        </section>
+
+                        <!-- Servicios -->
+                        <section class="panel">
+                            <h2>Servicios</h2>
+                            <form id="service-form" enctype="multipart/form-data">
+                                <input type="hidden" name="id">
+                                <input type="hidden" name="imagen_url">
+                                <label>Nombre
+                                    <input name="nombre" required maxlength="150">
+                                </label>
+                                <label>Descripción
+                                    <textarea name="descripcion" maxlength="1500" rows="3"></textarea>
+                                </label>
+
+                                <!-- Upload de imagen de servicio -->
+                                <label>Imagen del servicio</label>
+                                <div class="upload-zone" id="service-upload-zone" tabindex="0" role="button" aria-label="Subir imagen del servicio">
+                                    <div class="upload-preview" id="service-img-preview" hidden>
+                                        <img id="service-preview-img" alt="Vista previa de la imagen del servicio">
+                                        <button type="button" class="upload-clear" id="service-img-clear" aria-label="Eliminar imagen seleccionada">✕</button>
+                                    </div>
+                                    <div class="upload-placeholder" id="service-upload-placeholder">
+                                        <span class="upload-icon">📷</span>
+                                        <span>Arrastra una imagen o haz clic para seleccionar</span>
+                                        <small>.jpg, .png, .webp, .gif, .avif — máx. 5 MB</small>
+                                    </div>
+                                    <input type="file" name="imagen_file" id="service-file-input"
+                                           accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/svg+xml"
+                                           aria-label="Seleccionar imagen del servicio">
+                                </div>
+
+                                <label>Categoría
+                                    <select name="categoria_id" required><option value="">Selecciona una categoría</option></select>
+                                </label>
+                                <div class="actions">
+                                    <button class="primary" id="service-submit">Guardar servicio</button>
+                                    <button type="button" id="service-cancel">Cancelar edición</button>
+                                </div>
+                            </form>
+                            <div id="service-list" class="list"></div>
+                        </section>
                     </div>
-                </form>
-                <div id="service-list" class="list"></div>
-                </section>
-            </div>
+                </div>
+
+                <!-- ══════════ PESTAÑA: HERO SLIDER ══════════ -->
+                <div id="pane-hero" class="tab-pane" hidden>
+                    <div class="columns">
+                        <!-- Formulario de slide -->
+                        <section class="panel">
+                            <h2 id="hero-form-title">Nuevo panel</h2>
+                            <form id="hero-form">
+                                <input type="hidden" name="id">
+                                <input type="hidden" name="imagen_url">
+
+                                <!-- Upload de imagen de slide -->
+                                <label>Imagen de fondo del panel</label>
+                                <div class="upload-zone" id="hero-upload-zone" tabindex="0" role="button" aria-label="Subir imagen del panel Hero">
+                                    <div class="upload-preview" id="hero-img-preview" hidden>
+                                        <img id="hero-preview-img" alt="Vista previa de la imagen del panel">
+                                        <button type="button" class="upload-clear" id="hero-img-clear" aria-label="Eliminar imagen seleccionada">✕</button>
+                                    </div>
+                                    <div class="upload-placeholder" id="hero-upload-placeholder">
+                                        <span class="upload-icon">🖼️</span>
+                                        <span>Arrastra una imagen o haz clic para seleccionar</span>
+                                        <small>.jpg, .png, .webp — recomendado 1900×1080px</small>
+                                    </div>
+                                    <input type="file" name="hero_imagen_file" id="hero-file-input"
+                                           accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                                           aria-label="Seleccionar imagen del panel">
+                                </div>
+
+                                <label>Eyebrow <small style="color:#94a3b8">(texto pequeño sobre el título)</small>
+                                    <input name="eyebrow" maxlength="150" placeholder="Ej: Bienestar en tu equipo">
+                                </label>
+                                <label>Título <small style="color:#94a3b8">(tipografía Cinzel)</small>
+                                    <input name="titulo" required maxlength="300" placeholder="Ej: MASAJES PARA EMPRESAS" class="font-cinzel">
+                                </label>
+                                <label>Párrafo
+                                    <textarea name="parrafo" maxlength="3000" rows="3" placeholder="Descripción del panel..."></textarea>
+                                </label>
+                                <label>Texto del botón
+                                    <input name="boton_texto" maxlength="150" placeholder="Ej: VER MÁS →">
+                                </label>
+                                <label>URL del botón
+                                    <input name="boton_href" maxlength="2000" placeholder="Ej: servicios.html o https://wa.me/...">
+                                </label>
+                                <label class="label-checkbox">
+                                    <input type="checkbox" name="activo" id="hero-activo" checked>
+                                    Panel visible en el sitio
+                                </label>
+                                <div class="actions">
+                                    <button class="primary" id="hero-submit">Guardar panel</button>
+                                    <button type="button" id="hero-cancel">Cancelar edición</button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <!-- Lista de slides -->
+                        <section class="panel">
+                            <h2>Paneles del Hero Slider</h2>
+                            <p style="font-size:13px;color:#94a3b8;margin-bottom:12px">Usa las flechas ↑↓ para reordenar los paneles. Los cambios de orden se guardan automáticamente.</p>
+                            <div id="hero-list" class="list"></div>
+                        </section>
+                    </div>
+                </div>
+
             </section>
 
             <p id="notice" role="status" aria-live="polite"></p>

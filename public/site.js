@@ -297,7 +297,9 @@
 
   function startSlider() {
     const slider = byId('ev-hero-slider'); if (!slider) return;
-    const slides = [...slider.querySelectorAll('.ev-hero-slide')], dots = [...slider.querySelectorAll('[data-slide-to]')]; let index = 0, interval = null;
+    const slides = [...slider.querySelectorAll('.ev-hero-slide')],
+          dots   = [...slider.querySelectorAll('[data-slide-to]')];
+    let index = 0, interval = null;
     function show(n) {
       index = (n + slides.length) % slides.length;
       slides.forEach((s, i) => { const active = i === index; s.classList.toggle('is-active', active); s.setAttribute('aria-hidden', String(!active)); s.querySelectorAll('a').forEach(a => a.tabIndex = active ? 0 : -1); });
@@ -309,6 +311,78 @@
     slider.addEventListener('mouseenter', stop); slider.addEventListener('mouseleave', start); slider.addEventListener('focusin', stop); slider.addEventListener('focusout', e => { if (!slider.contains(e.relatedTarget)) start(); });
     document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
     show(0); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) start();
+  }
+
+  // Carga el Hero Slider desde /api/hero y renderiza los slides dinámicamente
+  async function loadHeroSlider() {
+    const slider = byId('ev-hero-slider'); if (!slider) return;
+    const loading  = byId('ev-hero-loading');
+    const prevBtn  = slider.querySelector('.ev-hero-prev');
+    const nextBtn  = slider.querySelector('.ev-hero-next');
+    const dotsWrap = slider.querySelector('.ev-hero-dots');
+
+    try {
+      const res = await fetch('/api/hero', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const slides = await res.json();
+
+      // Ocultar loader
+      if (loading) loading.remove();
+
+      if (!slides.length) return;
+
+      // Inyectar slides
+      slides.forEach((s, i) => {
+        const isFirst = i === 0;
+        const art = document.createElement('article');
+        art.className = 'ev-hero-slide' + (isFirst ? ' is-active' : '');
+        art.setAttribute('aria-hidden', isFirst ? 'false' : 'true');
+
+        const imgAlt = escape(s.eyebrow || s.titulo || 'Espacio Vital');
+        const imgSrc = s.imagen_url || '';
+
+        // Determinar si el botón abre en nueva pestaña
+        const isExternal = s.boton_href && (s.boton_href.startsWith('http://') || s.boton_href.startsWith('https://'));
+        const btnAttrs = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+
+        art.innerHTML = [
+          imgSrc ? `<img src="${escape(imgSrc)}" alt="${imgAlt}"${isFirst ? ' fetchpriority="high"' : ' loading="lazy"'}>` : '',
+          `<div class="ev-hero-content">`,
+          s.eyebrow ? `<span class="ev-hero-eyebrow">${escape(s.eyebrow)}</span>` : '',
+          isFirst ? `<h1>${escape(s.titulo)}</h1>` : `<h2>${escape(s.titulo)}</h2>`,
+          s.parrafo ? `<p>${escape(s.parrafo)}</p>` : '',
+          (s.boton_texto && s.boton_href)
+            ? `<a class="ev-primary-button" href="${escape(s.boton_href)}" ${btnAttrs}>${escape(s.boton_texto)}</a>`
+            : '',
+          `</div>`
+        ].join('');
+
+        // Insertar antes de los botones de navegación
+        slider.insertBefore(art, prevBtn);
+      });
+
+      // Construir dots
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.dataset.slideTo = i;
+        dot.setAttribute('aria-label', `Mostrar diapositiva ${i + 1}`);
+        dot.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+        if (i === 0) dot.classList.add('is-active');
+        dotsWrap.appendChild(dot);
+      });
+
+      // Mostrar controles
+      if (prevBtn) prevBtn.hidden = false;
+      if (nextBtn) nextBtn.hidden = false;
+      if (dotsWrap) dotsWrap.hidden = false;
+
+      // Inicializar la lógica del slider
+      startSlider();
+    } catch (err) {
+      console.error('No se pudo cargar el Hero Slider:', err);
+      if (loading) loading.textContent = '';
+    }
   }
 
   function startQuoteForm() {
@@ -338,8 +412,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     initializeShell();
     initializeSmartHeader();
-    startSlider();
+    loadHeroSlider();   // carga slides desde API y luego inicializa el slider
     startQuoteForm();
     loadCatalog();
   });
+
 } ) ();

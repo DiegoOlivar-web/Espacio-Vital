@@ -22,42 +22,13 @@
 
         <div id="site-header"></div>
 
-        <!-- Hero slider: tres paneles con imágenes y CTA -->
+        <!-- Hero slider — contenido cargado dinámicamente desde /api/hero -->
         <section class="ev-hero-slider" id="ev-hero-slider" aria-label="Presentación de Espacio Vital" aria-roledescription="carrusel">
-            <article class="ev-hero-slide is-active" aria-hidden="false">
-                <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1900&q=88" alt="Sesión de masaje terapéutico en un entorno de bienestar" fetchpriority="high">
-                <div class="ev-hero-content">
-                    <span class="ev-hero-eyebrow">Bienestar en tu equipo</span>
-                    <h1>MASAJES PARA EMPRESAS</h1>
-                    <p>Bienestar para tu equipo: masajes en silla ergonómica o camilla. Elige la cantidad de personas y solicita una cotización personalizada.</p>
-                    <a class="ev-primary-button" href="https://wa.me/51932200162?text=Hola%20Espacio%20Vital%2C%20quisiera%20cotizar%20masajes%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> COTIZAR AHORA</a>
-                </div>
-            </article>
-            <article class="ev-hero-slide" aria-hidden="true">
-                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1900&q=88" alt="Ambiente acogedor de relajación y spa">
-                <div class="ev-hero-content">
-                    <span class="ev-hero-eyebrow">Comodidad en tu hogar</span>
-                    <h2>MASAJES A DOMICILIO</h2>
-                    <p>Nosotros llevamos lo necesario para tu sesión. Tú solo dedícate a relajarte en casa con atención personalizada.</p>
-                    <a class="ev-primary-button" href="domicilio.html">VER MÁS <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="ev-hero-slide" aria-hidden="true">
-                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1900&q=88" alt="Manos de terapeuta realizando un masaje de bienestar">
-                <div class="ev-hero-content">
-                    <span class="ev-hero-eyebrow">Vuelve a sentirte bien</span>
-                    <h2>BIENESTAR QUE SE SIENTE</h2>
-                    <p>Encuentra tu momento de calma con nuestra selección de masajes, reflexología, terapia física y bienestar integral.</p>
-                    <a class="ev-primary-button" href="servicios.html">EXPLORAR SERVICIOS <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <button class="ev-hero-nav ev-hero-prev" data-slide-direction="-1" type="button" aria-label="Diapositiva anterior"><i class="fas fa-chevron-left"></i></button>
-            <button class="ev-hero-nav ev-hero-next" data-slide-direction="1" type="button" aria-label="Siguiente diapositiva"><i class="fas fa-chevron-right"></i></button>
-            <div class="ev-hero-dots" aria-label="Seleccionar diapositiva">
-                <button type="button" data-slide-to="0" class="is-active" aria-label="Mostrar diapositiva 1" aria-pressed="true"></button>
-                <button type="button" data-slide-to="1" aria-label="Mostrar diapositiva 2" aria-pressed="false"></button>
-                <button type="button" data-slide-to="2" aria-label="Mostrar diapositiva 3" aria-pressed="false"></button>
-            </div>
+            <!-- Los slides se inyectan por JavaScript -->
+            <div id="ev-hero-loading" style="display:flex;align-items:center;justify-content:center;min-height:420px;color:rgba(255,255,255,.3);font-size:14px">Cargando…</div>
+            <button class="ev-hero-nav ev-hero-prev" data-slide-direction="-1" type="button" aria-label="Diapositiva anterior" hidden><i class="fas fa-chevron-left"></i></button>
+            <button class="ev-hero-nav ev-hero-next" data-slide-direction="1" type="button" aria-label="Siguiente diapositiva" hidden><i class="fas fa-chevron-right"></i></button>
+            <div class="ev-hero-dots" aria-label="Seleccionar diapositiva" hidden></div>
         </section>
 
         <!-- Cinco categorías de los servicios -->

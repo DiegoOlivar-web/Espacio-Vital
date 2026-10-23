@@ -12,6 +12,7 @@
     "hash:admin": "node scripts/hash-admin.mjs"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.2",
     "pg": "^8.13.1"
   }
 }
