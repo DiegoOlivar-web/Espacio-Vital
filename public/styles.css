@@ -17,7 +17,7 @@ body {
     color: #f1f5f9;
 }
 
-/* Imagen de fondo: Servicio a domicilio */
+/* Fondo: Servicio a domicilio */
 .ev-home-service-bg {
     position: relative;
     isolation: isolate;
@@ -30,7 +30,6 @@ body {
         center center / cover no-repeat;
 }
 
-/* Mantener el contenido por delante */
 .ev-home-service-bg > * {
     position: relative;
     z-index: 1;
@@ -38,12 +37,11 @@ body {
 
 .map-container {
     position: relative;
-    width: 100%;       /* O el ancho fijo que prefieras, ej: 400px */
-    height: 300px;     /* ¡Importante! Define una altura fija para el contenedor */
+    width: 100%;
+    height: 300px;
     overflow: hidden;
 }
 
-/* Estilo común para la imagen y el mapa dentro del contenedor */
 .map-container a,
 .map-container iframe {
     position: absolute;
@@ -57,38 +55,36 @@ body {
 .map-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Evita que la imagen se deforme */
+    object-fit: cover;
 }
 
-/* Estado inicial del mapa: oculto */
+/* Mapa oculto */
 .map-frame {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transición suave opcional */
-    pointer-events: none; /* Evita que intercepte el mouse antes de mostrarse */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
 }
 
-/* Estado cuando se activa el mapa */
+/* Mapa mostrado */
 .map-container.active .map-frame {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
 }
 
-/* Ocultar la imagen cuando el contenedor está activo */
+/* Ocultar sede */
 .map-container.active img {
     opacity: 0;
     visibility: hidden;
 }
 
-/* Ajustar el fondo en móviles */
 @media (max-width: 768px) {
     .ev-home-service-bg {
         background-position: center;
     }
 }
 
-/* Imagen Sede */
 .ev-sede-photo {
     width: 100%;
     max-width: 520px;

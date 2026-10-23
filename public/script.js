@@ -26,12 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".map-container");
 
     if (container) {
-        // Al pasar el mouse por encima del contenedor
         container.addEventListener("mouseenter", () => {
             container.classList.add("active");
         });
-
-        // Al retirar el mouse del contenedor
         container.addEventListener("mouseleave", () => {
             container.classList.remove("active");
         });
