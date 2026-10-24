@@ -53,12 +53,12 @@
       const scrollActual = window.scrollY;
       const diferencia = scrollActual - scrollAnterior;
 
-      // Verificar si el menú móvil está abierto
+      // Verificar apertura menu movil
       const menuAbierto = document
           .getElementById("ev-mobile-nav")
           ?.classList.contains("ev-open");
 
-      // Si el menú está abierto, mantener visible el header
+      // mantener visible header
       if (menuAbierto) {
           header.classList.remove("ev-header-hidden");
           scrollAnterior = scrollActual;
@@ -66,7 +66,7 @@
           return;
       }
 
-      // Mostrar el encabezado cerca del inicio
+      // Mostrar encabezado en inicio
       if (scrollActual <= 80) {
           header.classList.remove("ev-header-hidden");
 
@@ -192,12 +192,12 @@
 
       const abierto = !menu.classList.contains('ev-open');
 
-      // Abrir o cerrar menú
+      // Abrir/cerrar menú
       menu.classList.toggle('ev-open', abierto);
 
       boton.setAttribute('aria-expanded', String(abierto));
 
-      // Mantener visible el encabezado en movil
+      // Visibilidad de encabezado movil
       if (abierto) {
           header.classList.remove('ev-header-hidden');
       }
@@ -313,7 +313,7 @@
     show(0); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) start();
   }
 
-  // Carga el Hero Slider desde /api/hero y renderiza los slides dinámicamente
+  // Carga y renderiza slides dinamicos
   async function loadHeroSlider() {
     const slider = byId('ev-hero-slider'); if (!slider) return;
     const loading  = byId('ev-hero-loading');
@@ -341,7 +341,7 @@
         const imgAlt = escape(s.eyebrow || s.titulo || 'Espacio Vital');
         const imgSrc = s.imagen_url || '';
 
-        // Determinar si el botón abre en nueva pestaña
+        // Nueva pestaña
         const isExternal = s.boton_href && (s.boton_href.startsWith('http://') || s.boton_href.startsWith('https://'));
         const btnAttrs = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
 
@@ -357,7 +357,6 @@
           `</div>`
         ].join('');
 
-        // Insertar antes de los botones de navegación
         slider.insertBefore(art, prevBtn);
       });
 
@@ -377,7 +376,7 @@
       if (nextBtn) nextBtn.hidden = false;
       if (dotsWrap) dotsWrap.hidden = false;
 
-      // Inicializar la lógica del slider
+      // Inicializar lógica slider
       startSlider();
     } catch (err) {
       console.error('No se pudo cargar el Hero Slider:', err);
@@ -412,7 +411,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initializeShell();
     initializeSmartHeader();
-    loadHeroSlider();   // carga slides desde API y luego inicializa el slider
+    loadHeroSlider();
     startQuoteForm();
     loadCatalog();
   });

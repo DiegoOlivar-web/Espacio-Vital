@@ -4,7 +4,6 @@ import { respond, method, dataBody, fail } from './_lib/http.js';
 
 const trimmed = (v, max = 255) => typeof v === 'string' ? v.trim().slice(0, max) : '';
 const integer = v => /^\d+$/.test(String(v??'')) && Number.isSafeInteger(Number(v)) && Number(v) > 0 ? Number(v) : null;
-// imagen_url ya no exige HTTPS: las imágenes provienen de Vercel Blob (storage propio)
 const imageValid = url => !url || url.length <= 2000;
 
 async function list() {

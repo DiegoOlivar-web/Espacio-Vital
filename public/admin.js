@@ -18,7 +18,7 @@
     $('notice').textContent = s;
   };
 
-  // ── API helper ───────────────────────────────────────────────────────────
+  // ── API helper ──
   async function api(path, options = {}) {
     const isFormData = options.body instanceof FormData;
     const res = await fetch(path, {
@@ -26,7 +26,6 @@
       cache: 'no-store',
       ...options,
       headers: {
-        // No establecer Content-Type para FormData (el browser lo hace con boundary)
         ...(options.body && !isFormData ? { 'Content-Type': 'application/json' } : {}),
         ...options.headers
       }
@@ -42,21 +41,40 @@
     return data;
   }
 
-  // ── Upload de imagen ─────────────────────────────────────────────────────
+  // ── Upload de imagen ──
   /**
-   * Sube un archivo File al endpoint /api/upload y devuelve la URL pública.
+   * 
    * @param {File} file
-   * @param {string} [oldUrl] URL del blob anterior para eliminar
+   * @param {string} [oldUrl] URL del blob anterior a eliminar
    */
-  async function uploadImage(file, oldUrl = '') {
-    const fd = new FormData();
-    fd.append('file', file);
-    if (oldUrl) fd.append('old_url', oldUrl);
-    const data = await api('/api/upload', { method: 'POST', body: fd });
-    return data.url;
+  
+async function uploadImage(file, oldUrl = '') {
+  if (!(file instanceof File)) {
+    throw new Error('Selecciona una imagen válida');
   }
 
-  // ── Vistas ───────────────────────────────────────────────────────────────
+  const params = new URLSearchParams();
+
+  if (oldUrl) {
+    params.set('old_url', oldUrl);
+  }
+
+  const path = '/api/upload' +
+    (params.size ? `?${params.toString()}` : '');
+
+  const data = await api(path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/octet-stream',
+      'X-File-Type': file.type
+    },
+    body: file
+  });
+
+  return data.url;
+}
+
+  // ── Vistas ───
   function showLogin() {
     localStorage.removeItem('ev_admin_logged');
     $('dashboard').hidden = true;
@@ -71,7 +89,7 @@
     $('logout').hidden = false;
   }
 
-  // ── Tabs ─────────────────────────────────────────────────────────────────
+  // ── Tabs ──
   function switchTab(name) {
     document.querySelectorAll('.tab').forEach(t => {
       const active = t.dataset.tab === name;
@@ -87,7 +105,7 @@
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  // ── Carga de datos ───────────────────────────────────────────────────────
+  // ── Carga de datos ──
   async function load() {
     [catalog, heroSlides] = await Promise.all([
       api('/api/servicios'),
@@ -97,7 +115,7 @@
     renderHero();
   }
 
-  // ── Render: Tratamientos ─────────────────────────────────────────────────
+  // ── Render: Tratamientos ──
   function render() {
     $('category-list').innerHTML = catalog.categorias.map(c => `
       <article class="item">
@@ -137,7 +155,7 @@
     }
   }
 
-  // ── Render: Hero Slider ──────────────────────────────────────────────────
+  // ── Render: Hero Slider ──
   function renderHero() {
     if (!heroSlides.length) {
       $('hero-list').innerHTML = '<p>No hay paneles en el Hero Slider.</p>';
@@ -163,7 +181,7 @@
     `).join('');
   }
 
-  // ── Reset de formularios ─────────────────────────────────────────────────
+  // ── Reset de formularios ──
   function reset(kind) {
     const f = $(kind === 'categoria' ? 'category-form' : 'service-form');
     f.reset();
@@ -183,7 +201,7 @@
     clearImagePreview('hero');
   }
 
-  // ── Upload zone UI ───────────────────────────────────────────────────────
+  // ── Upload zone UI ──
   function setupUploadZone(prefix) {
     const zone   = $(`${prefix}-upload-zone`);
     const input  = $(`${prefix}-file-input`);
@@ -192,7 +210,6 @@
     const img    = $(`${prefix}-preview-img`);
     const clear  = $(`${prefix}-img-clear`);
 
-    // Click en la zona → abrir selector
     zone.addEventListener('click', e => {
       if (e.target !== clear) input.click();
     });
@@ -209,7 +226,14 @@
       e.preventDefault();
       zone.classList.remove('drag-over');
       const file = e.dataTransfer?.files?.[0];
-      if (file) applyFilePreview(prefix, file);
+
+      if (file) {
+          const transfer = new DataTransfer();
+          transfer.items.add(file);
+          input.files = transfer.files;
+
+          applyFilePreview(prefix, file);
+      }
     });
 
     // File input change
@@ -250,7 +274,7 @@
     ph.hidden = false;
     if (input) input.value = '';
 
-    // Limpiar imagen_url oculto del formulario si corresponde
+    // Limpiar imagen_url oculto
     const form = prefix === 'service' ? $('service-form') : $('hero-form');
     if (form?.elements?.imagen_url) form.elements.imagen_url.value = '';
   }
@@ -265,7 +289,7 @@
     ph.hidden = true;
   }
 
-  // ── Editar: Tratamientos ─────────────────────────────────────────────────
+  // ── Editar: Tratamientos ──
   function edit(kind, id) {
     const record = kind === 'categoria' 
       ? catalog.categorias.find(x => x.id === id) 
@@ -289,7 +313,7 @@
     f.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // ── Submit: Tratamientos ─────────────────────────────────────────────────
+  // ── Submit: Tratamientos ──
   async function submit(kind, event) {
     event.preventDefault();
     const f = event.currentTarget;
@@ -301,7 +325,6 @@
 
     let imagen_url = kind === 'servicio' ? (f.elements.imagen_url.value || '') : undefined;
 
-    // Si hay un archivo nuevo seleccionado → subirlo primero
     if (kind === 'servicio') {
       const fileInput = $('service-file-input');
       if (fileInput.files.length > 0) {
@@ -335,7 +358,7 @@
     }
   }
 
-  // ── Click en lista de Tratamientos ───────────────────────────────────────
+  // ── Click en lista de Tratamientos ──
   async function onListClick(e) {
     const btn = e.target.closest('[data-action]');
     if (!btn) return;
@@ -356,7 +379,7 @@
     }
   }
 
-  // ── Editar: Hero ─────────────────────────────────────────────────────────
+  // ── Editar: Hero ──
   function editHero(id) {
     const slide = heroSlides.find(s => s.id === id);
     if (!slide) return;
@@ -376,11 +399,10 @@
     $('hero-form-title').textContent = 'Editar panel';
     f.scrollIntoView({ behavior: 'smooth' });
 
-    // Cambiar a pestaña hero si no está activa
     switchTab('hero');
   }
 
-  // ── Submit: Hero ─────────────────────────────────────────────────────────
+  // ── Submit: Hero ──
   $('hero-form').addEventListener('submit', async e => {
     e.preventDefault();
     const f = e.currentTarget;
@@ -423,7 +445,7 @@
     }
   });
 
-  // ── Click en lista de Hero ───────────────────────────────────────────────
+  // ── Click en lista de Hero ──
   $('hero-list').addEventListener('click', async e => {
     const btn = e.target.closest('[data-hero-action]');
     if (!btn) return;
@@ -437,7 +459,6 @@
       const slide = heroSlides.find(s => s.id === id);
       if (!confirm(`¿Eliminar el panel "${slide?.titulo || id}"? Esta acción no se puede deshacer.`)) return;
       try {
-        // Intentar eliminar blob de imagen si existe
         if (slide?.imagen_url && slide.imagen_url.includes('vercel-storage.com')) {
           await api('/api/upload', { method: 'DELETE', body: JSON.stringify({ url: slide.imagen_url }) });
         }
@@ -450,7 +471,7 @@
       return;
     }
 
-    // Reordenar ↑ / ↓
+    // Reordenar
     if (action === 'up' || action === 'down') {
       const idx = heroSlides.findIndex(s => s.id === id);
       if (idx === -1) return;
@@ -470,7 +491,7 @@
     }
   });
 
-  // ── Eventos globales ─────────────────────────────────────────────────────
+  // ── Eventos globales ──
   $('login-form').addEventListener('submit', async e => {
     e.preventDefault();
     const f = e.currentTarget;
@@ -502,11 +523,11 @@
   $('service-list').addEventListener('click', onListClick);
   $('hero-cancel').addEventListener('click', resetHero);
 
-  // ── Upload zones setup ───────────────────────────────────────────────────
+  // ── Upload zones setup ──
   setupUploadZone('service');
   setupUploadZone('hero');
 
-  // ── Init ─────────────────────────────────────────────────────────────────
+  // ── Init ──
   (async () => {
     try {
       const state = await api('/api/login');

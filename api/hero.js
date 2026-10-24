@@ -16,7 +16,6 @@ export default async function handler(req, res) {
     if (!['GET', 'POST', 'PUT', 'DELETE'].includes(req.method)) return method(req, res, ['GET', 'POST', 'PUT', 'DELETE']);
 
     try {
-        // GET — público, lista slides activos (o todos si ?admin=1 con sesión)
         if (req.method === 'GET') {
             const rows = await list();
             const isAdmin = req.query?.admin === '1' && sessionValid(req);
@@ -28,7 +27,7 @@ export default async function handler(req, res) {
 
         const body = dataBody(req);
 
-        // DELETE — eliminar slide
+        // Eliminar slide
         if (req.method === 'DELETE') {
             const id = integer(body.id);
             if (!id) return respond(res, 400, { error: 'ID inválido' });
@@ -36,7 +35,7 @@ export default async function handler(req, res) {
             return r.rowCount ? respond(res, 200, { deleted: true }) : respond(res, 404, { error: 'Slide no encontrado' });
         }
 
-        // Acción especial: reordenar
+        // Reordenar
         if (body.accion === 'reorder') {
             const items = body.items; // [{ id, orden }, ...]
             if (!Array.isArray(items)) return respond(res, 400, { error: 'items debe ser un array' });
@@ -59,7 +58,7 @@ export default async function handler(req, res) {
 
         if (!titulo) return respond(res, 400, { error: 'El título es obligatorio' });
 
-        // POST — crear slide nuevo
+        // POST — Crear Slide
         if (req.method === 'POST') {
             // Calcular siguiente orden
             const last = await db().query('SELECT COALESCE(MAX(orden),0)+1 AS next FROM hero_slides');
@@ -71,7 +70,7 @@ export default async function handler(req, res) {
             return respond(res, 201, r.rows[0]);
         }
 
-        // PUT — actualizar slide
+        // PUT — Actualizar
         const id = integer(body.id);
         if (!id) return respond(res, 400, { error: 'ID inválido' });
         const r = await db().query(
