@@ -161,7 +161,7 @@
         </div>
         <div>
           <b>Encuéntranos</b>
-          <p>Av. Modelo 51, Grupo 22, Mz. P, Lt 3<br>Villa El Salvador, Lima, Perú</p>
+          <p>Av. Modelo, Sector 1, Grupo 22, Mz. P, Lt 3<br>Villa El Salvador, Lima, Perú</p>
           <a href="${wa('Hola Espacio Vital, deseo solicitar información.')}" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-whatsapp"></i> +51 932 200 162
           </a>
@@ -173,17 +173,17 @@
     </footer>`;
 
     document.body.insertAdjacentHTML('beforeend', `
-<div class="ev-overlay" id="ev-overlay" hidden></div>
-<aside id="ev-cart-panel" class="ev-drawer" role="dialog" aria-modal="true" aria-label="Carrito de servicios" aria-hidden="true" tabindex="-1">
-<div class="ev-drawer-head"><div><span class="ev-mini-label">TUS SERVICIOS</span><h2>Mi carrito <span id="ev-cart-count"></span></h2></div><button type="button" class="ev-icon-button" data-close-cart aria-label="Cerrar carrito"><i class="fas fa-times"></i></button></div>
-<div class="ev-drawer-items" id="ev-cart-items"></div>
-<div class="ev-drawer-bottom"><small>Selecciona los servicios que deseas consultar. La disponibilidad y las formas de pago se coordinarán directamente por WhatsApp.</small><button type="button" id="ev-checkout-btn" class="ev-primary-button"><i class="fab fa-whatsapp"></i> RESERVA TU CITA</button></div></aside>
-<div class="ev-payment-layer" id="ev-payment-layer" hidden>
-<div class="ev-payment-dialog" role="dialog" aria-modal="true" aria-labelledby="ev-payment-title" tabindex="-1"><button type="button" class="ev-icon-button ev-payment-close" id="ev-payment-close" aria-label="Cerrar"><i class="fas fa-times"></i></button><span class="ev-mini-label">ÚLTIMO PASO</span><h2 id="ev-payment-title">Datos para tu consulta</h2><p>Completa tus datos para preparar tu consulta por WhatsApp. Los campos con * son obligatorios.</p>
-<form id="ev-consult-form"><div class="ev-contact-fields"><label>Nombres *<input name="nombres" type="text" autocomplete="given-name" maxlength="100" required placeholder="Tus nombres"></label><label>Apellidos *<input name="apellidos" type="text" autocomplete="family-name" maxlength="100" required placeholder="Tus apellidos"></label><label>Correo electrónico (opcional)<input name="correo" type="email" autocomplete="email" maxlength="160" placeholder="correo@ejemplo.com"></label><label>Número de celular *<input name="celular" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9() -]{7,20}" required placeholder="987654321"></label></div>
-<div class="ev-payment-info"><strong>Medios de pago disponibles (informativo)</strong><div><span><i class="fas fa-money-bill-wave"></i> Efectivo (en el local)</span><span><i class="fas fa-mobile-alt"></i> Yape</span></div><small>La elección del medio de pago se coordina con la empresa. Aquí no se realiza ningún cobro.</small></div>
-<div class="ev-pay-footer"><button id="ev-whatsapp-order" type="submit" class="ev-primary-button" disabled><i class="fab fa-whatsapp"></i> SOLICITAR RESERVA</button></div></form>
-</div></div>`);
+    <div class="ev-overlay" id="ev-overlay" hidden></div>
+    <aside id="ev-cart-panel" class="ev-drawer" role="dialog" aria-modal="true" aria-label="Carrito de servicios" aria-hidden="true" tabindex="-1">
+    <div class="ev-drawer-head"><div><span class="ev-mini-label">TUS SERVICIOS</span><h2>Mi carrito <span id="ev-cart-count"></span></h2></div><button type="button" class="ev-icon-button" data-close-cart aria-label="Cerrar carrito"><i class="fas fa-times"></i></button></div>
+    <div class="ev-drawer-items" id="ev-cart-items"></div>
+    <div class="ev-drawer-bottom"><small>Selecciona los servicios que deseas consultar. La disponibilidad y las formas de pago se coordinarán directamente por WhatsApp.</small><button type="button" id="ev-checkout-btn" class="ev-primary-button"><i class="fab fa-whatsapp"></i> RESERVA TU CITA</button></div></aside>
+    <div class="ev-payment-layer" id="ev-payment-layer" hidden>
+    <div class="ev-payment-dialog" role="dialog" aria-modal="true" aria-labelledby="ev-payment-title" tabindex="-1"><button type="button" class="ev-icon-button ev-payment-close" id="ev-payment-close" aria-label="Cerrar"><i class="fas fa-times"></i></button><span class="ev-mini-label">ÚLTIMO PASO</span><h2 id="ev-payment-title">Datos para tu consulta</h2><p>Completa tus datos para preparar tu consulta por WhatsApp. Los campos con * son obligatorios.</p>
+    <form id="ev-consult-form"><div class="ev-contact-fields"><label>Nombres *<input name="nombres" type="text" autocomplete="given-name" maxlength="100" required placeholder="Tus nombres"></label><label>Apellidos *<input name="apellidos" type="text" autocomplete="family-name" maxlength="100" required placeholder="Tus apellidos"></label><label>Correo electrónico (opcional)<input name="correo" type="email" autocomplete="email" maxlength="160" placeholder="correo@ejemplo.com"></label><label>Número de celular *<input name="celular" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9() -]{7,20}" required placeholder="987654321"></label></div>
+    <div class="ev-payment-info"><strong>Medios de pago disponibles (informativo)</strong><div><span><i class="fas fa-money-bill-wave"></i> Efectivo (en el local)</span><span><i class="fas fa-mobile-alt"></i> Yape</span></div><small>La elección del medio de pago se coordina con la empresa. Aquí no se realiza ningún cobro.</small></div>
+    <div class="ev-pay-footer"><button id="ev-whatsapp-order" type="submit" class="ev-primary-button" disabled><i class="fab fa-whatsapp"></i> SOLICITAR RESERVA</button></div></form>
+    </div></div>`);
 
     byId('ev-menu-trigger').addEventListener('click', () => {
       const menu = byId('ev-mobile-nav');
